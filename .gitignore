@@ -1,0 +1,47 @@
+*.a
+*.eml
+*.exec
+*.iml
+*.jdp
+*.la
+*.launch
+*.license
+*.lo
+*.log
+*.ncb
+*.o
+*.orig
+*.patch
+*.project
+*.pyc
+*.suo
+*.vcxproj.user
+.checkstyle
+.idea/
+.sonar
+/.gradle/
+/.vagrant/
+/lib/
+/out/
+Thumbs.db
+/target
+data/persistence/device-mgmt.db
+device-mgmt.db
+configuration.yml
+
+# Netbeans
+target/
+nbbuild/
+nbdist/
+nbproject/
+.nb-gradle/
+.nb-gradle-properties
+nb-build.xml
+nbactions.xml
+
+# IDE project configuration made redundant by Gradle projects
+.project
+.classpath
+
+# Eclipse project settings directory
+.settings/

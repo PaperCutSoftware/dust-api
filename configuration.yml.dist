@@ -1,0 +1,29 @@
+slackConfig:
+    botToken: #<Fill in the bot token>
+    botUsername: #<Fill in the bot username>
+    commandVerificationTokens:
+      - #[verification token #1]
+      - #[verification token #2]
+      - #[verification token #3]
+      - #[verification token #4]
+    channel: #<Channel to post into>
+    pinningChannel: #<channel to pin messages to>
+authConfig:
+    clientId: #<Google client id>
+    hostedDomain: #<your hosted domain>
+    authenticationCachePolicy: maximumSize=200, expireAfterAccess=60m
+server:
+  rootPath: /api/
+  applicationConnectors:
+    - type: http
+      port: 9090
+  adminConnectors:
+    - type: http
+      port: 9091
+logging:
+  level: INFO
+  loggers:
+    allbegray: WARN
+    com.papercut: TRACE
+  appenders:
+    - type: console
