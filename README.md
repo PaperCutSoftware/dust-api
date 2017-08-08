@@ -4,18 +4,18 @@ DUST is a tool to track the usage of a fleet of devices in a shared environment.
 
 With DUST, you can:
  
-  * Add new devices, providing descriptive information on them, such:
-    * hostname
-    * brand
-    * model
-    * credentials
-    * photo
-    * ip
-    * nickname
-    * and more...
-  * Claim a device as a user to let others know which device is in use.
-  * Integrate a Slack bot with a Slack channel for group communication and convenient commands 
-    (like */claim &lt;device&gt;*). 
+* Add new devices, providing descriptive information on them, such:
+  * hostname
+  * brand
+  * model
+  * credentials
+  * photo
+  * ip
+  * nickname
+  * and more...
+* Claim a device as a user to let others know which device is in use.
+* Integrate a Slack bot with a Slack channel for group communication and convenient commands 
+  (like */claim &lt;device&gt;*). 
 
 > Made for PaperCut [Constructival 2016][1]
 
@@ -49,6 +49,12 @@ server
 logoging
     configuration for the logger
 ```
+### Authentication
+
+DUST uses Google OAuth for authentication and authorisation. To begin,
+[create a Google API Console project and client ID](https://developers.google.com/identity/sign-in/web/devconsole-project).
+
+The optional `hostedDomain` may be configured to restrict users to a Google Apps domain.
 
 ## Slack Integration
 
@@ -78,7 +84,7 @@ Pre-requisites:
 
 ### Build the container
 
-```
+``` bash
 mvn clean package docker:build
 ```
 
