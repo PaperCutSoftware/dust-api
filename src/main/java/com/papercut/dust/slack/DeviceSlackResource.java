@@ -11,10 +11,10 @@ package com.papercut.dust.slack;
 import allbegray.slack.rtm.Event;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.papercut.dust.ConfigurationHolder;
-import com.papercut.dust.claim.NoSuchClaimException;
 import com.papercut.dust.claim.AlreadyClaimedException;
 import com.papercut.dust.claim.Claim;
 import com.papercut.dust.claim.ClaimRepository;
+import com.papercut.dust.claim.NoSuchClaimException;
 import com.papercut.dust.device.Device;
 import com.papercut.dust.device.DeviceEvent;
 import com.papercut.dust.device.DeviceRepository;
@@ -25,7 +25,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -40,9 +44,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static java.util.stream.Collectors.toList;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.event.Observes;
 
 /**
  * REST resource for the Slack side of integration.
@@ -62,8 +63,8 @@ public class DeviceSlackResource {
 
     private ExecutorService executor;
 
-    @Inject
-    private SlackClient slack;
+    @Inject @Any
+    private Instance<SlackClient> slackAccessor;
     @Inject
     private DeviceRepository deviceRepository;
     @Inject
@@ -71,8 +72,15 @@ public class DeviceSlackResource {
     @Inject
     private UserRepository userRepository;
 
+    private SlackClient slack;
+
     @PostConstruct
     public void addSlackPinListeners() {
+        if (slackConfig().configured()) {
+            slack = slackAccessor.select(new ConfiguredAnnotationLiteral()).get();
+        } else {
+            slack = slackAccessor.select(new NoOpAnnotationLiteral()).get();
+        }
         executor = Executors.newSingleThreadExecutor();
         slack.addListener(Event.PIN_ADDED, this::onPin);
         slack.addListener(Event.PIN_REMOVED, this::onUnpin);

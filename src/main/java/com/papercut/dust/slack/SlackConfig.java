@@ -9,6 +9,7 @@
 package com.papercut.dust.slack;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +86,10 @@ public class SlackConfig {
 
     public void setPinningChannel(String pinningChannel) {
         this.pinningChannel = pinningChannel;
+    }
+
+    public boolean configured() {
+        return StringUtils.isNotBlank(getBotToken()) && commandVerificationTokens != null && !commandVerificationTokens.isEmpty();
     }
 
 }
