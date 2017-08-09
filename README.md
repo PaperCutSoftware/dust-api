@@ -60,6 +60,7 @@ The optional `hostedDomain` may be configured to restrict users to a Google Apps
 
 Edit `configuration.yml` and set the values for `slackConfig`
 You will need to configure a [custom bot user][2] and [slash commands][3] for the channels being used.
+NOTE: Slack integration is optional. Leaving `botToken` empty will ignore running any Slack operation.
 
 ### Bot
 
