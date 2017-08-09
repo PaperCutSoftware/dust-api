@@ -46,7 +46,7 @@ server
     configuration for the server app and admin connectors
 ```
 ```
-logoging
+logging
     configuration for the logger
 ```
 ### Authentication
