@@ -1,5 +1,7 @@
 # DUST: Device Usage Tracker API
 
+[![Build Status](https://travis-ci.org/PaperCutSoftware/dust-api.svg?branch=master)](https://travis-ci.org/PaperCutSoftware/dust-api)
+
 DUST is a tool to track the usage of a fleet of devices in a shared environment. 
 
 With DUST, you can:
