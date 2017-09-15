@@ -21,7 +21,6 @@ import static java.util.stream.Collectors.joining;
 /**
  * Repository of devices.
  */
-
 @ApplicationScoped
 public class DeviceRepository extends Repository<Device> {
 
@@ -57,12 +56,12 @@ public class DeviceRepository extends Repository<Device> {
         final Collection<Device> foundDevices = findByKeyword(keyword);
         switch (foundDevices.size()) {
             case 0:
-                throw new NoSuchUniqueDeviceException("We couldn't find a matching device for: " + keyword);
+                throw NoSuchUniqueDeviceException.none(keyword);
             case 1:
                 return foundDevices.iterator().next();
             default:
                 final String foundDeviceNames = foundDevices.stream().map(Device::getNickname).collect(joining("\n"));
-                throw new NoSuchUniqueDeviceException("We found too many matching devices for '" + keyword + "': " + foundDeviceNames);
+                throw NoSuchUniqueDeviceException.tooMany(keyword, foundDeviceNames);
         }
     }
 
@@ -112,8 +111,7 @@ public class DeviceRepository extends Repository<Device> {
     public Device findByName(final String nickname) {
         return store.values().stream().filter(e -> e.nickname.equals(nickname))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchUniqueDeviceException("No unique matching device for '" + nickname + "'")
-                );
+                .orElseThrow(() -> NoSuchUniqueDeviceException.none(nickname));
     }
 
 }

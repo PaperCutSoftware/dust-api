@@ -10,7 +10,8 @@ package com.papercut.dust.claim;
 
 public class NoSuchClaimException extends RuntimeException {
 
-    public NoSuchClaimException(String message) {
-        super(message);
+    public NoSuchClaimException(final long deviceId, final long userId) {
+        super(String.format("There is no claim for device %s and user %s", deviceId, userId));
     }
+
 }

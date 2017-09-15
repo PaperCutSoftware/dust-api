@@ -27,7 +27,11 @@ public class SlackCommandResponse {
     public SlackCommandResponse() {
     }
 
-    public SlackCommandResponse(final String responseType, final String text, final List<Attachment> attachments) {
+    public SlackCommandResponse(
+            final String responseType,
+            final String text,
+            final List<Attachment> attachments
+    ) {
         this.responseType = responseType;
         this.text = text;
         this.attachments = attachments;

@@ -17,11 +17,11 @@ import org.jboss.weld.environment.servlet.Listener;
 public class WeldBundle implements Bundle {
 
     @Override
-    public void initialize(Bootstrap<?> bootstrap) {
+    public void initialize(final Bootstrap<?> bootstrap) {
     }
 
     @Override
-    public void run(Environment environment) {
+    public void run(final Environment environment) {
         environment.getApplicationContext().addEventListener(new BeanManagerResourceBindingListener());
         environment.getApplicationContext().addEventListener(new Listener());
     }

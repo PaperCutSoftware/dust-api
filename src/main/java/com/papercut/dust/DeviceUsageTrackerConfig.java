@@ -24,7 +24,7 @@ public class DeviceUsageTrackerConfig extends Configuration {
         return slackConfig;
     }
 
-    public void setSlackConfig(SlackConfig slackConfig) {
+    public void setSlackConfig(final SlackConfig slackConfig) {
         this.slackConfig = slackConfig;
     }
 
@@ -32,7 +32,8 @@ public class DeviceUsageTrackerConfig extends Configuration {
         return authConfig;
     }
 
-    public void setAuthConfig(AuthConfig authConfig) {
+    public void setAuthConfig(final AuthConfig authConfig) {
         this.authConfig = authConfig;
     }
+
 }

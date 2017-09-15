@@ -45,7 +45,7 @@ public class AuthConfig {
         return CacheBuilderSpec.parse(authenticationCachePolicy);
     }
 
-    public void setAuthenticationCachePolicy(String authenticationCachePolicy) {
+    public void setAuthenticationCachePolicy(final String authenticationCachePolicy) {
         this.authenticationCachePolicy = authenticationCachePolicy;
     }
 }

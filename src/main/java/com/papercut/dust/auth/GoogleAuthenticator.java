@@ -44,7 +44,7 @@ public class GoogleAuthenticator implements Authenticator<String, User> {
                 .setAudience(Collections.singleton(clientId))
                 .setIssuer(ISSUER)
                 .build();
-        this.hostedDomain = hostedDomain;        
+        this.hostedDomain = hostedDomain;
     }
 
     @Override
@@ -52,7 +52,8 @@ public class GoogleAuthenticator implements Authenticator<String, User> {
         try {
             return Optional.ofNullable(tokenVerifier.verify(idToken))
                     .map(GoogleIdToken::getPayload)
-                    .filter(payload -> hostedDomain == null || payload.getHostedDomain().equals(hostedDomain))
+                    .filter(payload -> hostedDomain == null
+                            || payload.getHostedDomain().equals(hostedDomain))
                     .map(this::payloadToUser);
         } catch (GeneralSecurityException | IOException e) {
             throw new AuthenticationException(e);

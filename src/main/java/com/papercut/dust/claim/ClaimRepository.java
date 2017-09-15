@@ -17,10 +17,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Tracks claims.
@@ -60,15 +61,17 @@ public class ClaimRepository extends Repository<Claim> {
                 .filter(c
                         -> (deviceId == null || c.deviceId == deviceId)
                         && (userId == null || c.userId == userId)
-                        && (active == null || (active ? c.endDate == null : c.endDate.isBefore(LocalDateTime.now())))
+                        && (active == null || (active
+                                ? c.endDate == null
+                                : c.endDate.isBefore(LocalDateTime.now())))
                 )
                 .collect(toList());
     }
 
     public Claim findActive(final long deviceId, final long userId) throws NoSuchClaimException {
-        return find(deviceId, userId, true).stream().findFirst().orElseThrow(() -> new NoSuchClaimException(
-                String.format("There is no claim for device %s and user %s", deviceId, userId))
-        );
+        return find(deviceId, userId, true).stream()
+                .findFirst()
+                .orElseThrow(() -> new NoSuchClaimException(deviceId, userId));
     }
 
     public List<Claim> findActives(final long userId) {
@@ -92,11 +95,12 @@ public class ClaimRepository extends Repository<Claim> {
             final LocalDateTime now = LocalDateTime.now();
             throw existingActiveClaims.stream()
                     .filter(c
-                            -> c.startDate.isBefore(now) && (c.endDate == null || c.endDate.isAfter(now))
+                            -> c.startDate.isBefore(now)
+                            && (c.endDate == null || c.endDate.isAfter(now))
                     )
                     .findFirst()
                     .map(AlreadyClaimedException::new)
-                    .orElse(new AlreadyClaimedException(claim.deviceName));
+                    .orElse(new AlreadyClaimedException(claim));
         }
 
         final Claim createdClaim = super.create(claim.startingNow());

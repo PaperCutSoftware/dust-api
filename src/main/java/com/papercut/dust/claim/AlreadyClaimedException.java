@@ -8,28 +8,16 @@
  */
 package com.papercut.dust.claim;
 
-import javax.annotation.Nullable;
-
 public class AlreadyClaimedException extends RuntimeException {
 
-    private final String deviceName;
-    @Nullable
-    private String username;
-
     public AlreadyClaimedException(final Claim claim) {
-        this(claim.deviceName);
-        username = claim.username;
+        this(claim.deviceName, claim.username);
     }
 
-    public AlreadyClaimedException(final String deviceName) {
-        this.deviceName = deviceName;
-    }
-
-    @Override
-    public String getMessage() {
-        return username != null
+    public AlreadyClaimedException(final String deviceName, final String username) {
+        super(username != null
                 ? String.format("Device %s is already claimed by user %s", deviceName, username)
-                : String.format("Device %s is already claimed", deviceName);
+                : String.format("Device %s is already claimed", deviceName));
     }
 
 }

@@ -40,7 +40,9 @@ public class ProfileResource {
     @GET
     @Path("/watches")
     public Collection<Watch> profileWatches(@Auth final User authUser) {
-        return userRepo.findWatchesOfUser(authUser.getId()).stream().map(Watch::new).collect(toList());
+        return userRepo.findWatchesOfUser(authUser.getId()).stream()
+                .map(Watch::new)
+                .collect(toList());
     }
 
     @POST
@@ -51,7 +53,10 @@ public class ProfileResource {
 
     @DELETE
     @Path("/watches/{deviceId}")
-    public void removeProfileWatch(@Auth final User authUser, @PathParam("deviceId") final long deviceId) {
+    public void removeProfileWatch(
+            @Auth final User authUser,
+            @PathParam("deviceId") final long deviceId
+    ) {
         userRepo.removeWatch(deviceId, authUser.getId());
     }
 }

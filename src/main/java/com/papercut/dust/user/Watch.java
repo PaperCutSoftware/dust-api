@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 
+/**
+ * A user watching the changes of the status of a specific device.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Watch implements Serializable, Identifiable<Watch> {
 
