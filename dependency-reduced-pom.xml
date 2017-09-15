@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.papercut.tools</groupId>
-  <artifactId>device-mgmt-api</artifactId>
-  <name>device-mgmt-api</name>
-  <version>1.4.2</version>
-  <description>Device Usage Tracker API</description>
+  <groupId>com.papercut.dust</groupId>
+  <artifactId>dust-api</artifactId>
+  <name>dust-api</name>
+  <version>1.0.0</version>
+  <description>DUST: Device Usage Tracker API</description>
   <prerequisites>
     <maven>3.0.0</maven>
   </prerequisites>
