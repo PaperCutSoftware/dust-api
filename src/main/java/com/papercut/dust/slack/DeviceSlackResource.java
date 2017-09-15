@@ -21,6 +21,7 @@ import com.papercut.dust.device.DeviceRepository;
 import com.papercut.dust.device.NoSuchUniqueDeviceException;
 import com.papercut.dust.user.User;
 import com.papercut.dust.user.UserRepository;
+import java.lang.annotation.Annotation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,8 @@ public class DeviceSlackResource {
 
     private ExecutorService executor;
 
-    @Inject @Any
+    @Inject
+    @Any
     private Instance<SlackClient> slackAccessor;
     @Inject
     private DeviceRepository deviceRepository;
@@ -76,19 +78,18 @@ public class DeviceSlackResource {
 
     @PostConstruct
     public void addSlackPinListeners() {
-        if (slackConfig().configured()) {
-            slack = slackAccessor.select(new ConfiguredAnnotationLiteral()).get();
-        } else {
-            slack = slackAccessor.select(new NoOpAnnotationLiteral()).get();
-        }
+        final Annotation annotation = slackConfig().configured()
+                ? new ConfiguredAnnotationLiteral()
+                : new NoOpAnnotationLiteral();
+        slack = slackAccessor.select(annotation).get();
         executor = Executors.newSingleThreadExecutor();
         slack.addListener(Event.PIN_ADDED, this::onPin);
         slack.addListener(Event.PIN_REMOVED, this::onUnpin);
     }
 
     /**
-     * Slack command endpoint. This is where the application is receiving slash commands from Slack and returning
-     * synchronous responses to them.
+     * Slack command endpoint. This is where the application is receiving slash commands from Slack
+     * and returning synchronous responses to them.
      *
      * @param params parameters posted from Slack
      * @return synchronous response for the command
@@ -220,11 +221,9 @@ public class DeviceSlackResource {
      * @return an ephemeral message showing the help
      */
     private SlackCommandResponse help(final String command) {
-        final String formattedMessage
-                = String.format(
-                        "Type %s <device name> which can uniquely identify the device. E.g %s toshiba2050",
-                        command,
-                        command);
+        final String formattedMessage = String.format(
+                "Type %s <device name> which can uniquely identify the device. E.g %s toshiba2050",
+                command, command);
         return ephemeralResponseWith(formattedMessage);
     }
 
@@ -250,7 +249,8 @@ public class DeviceSlackResource {
 
     private void sendNotifications(final Claim claim, final boolean claimed) {
         final String action = claimed ? "claimed" : "unclaimed";
-        final String notificationMessage = String.format("Device %s was %s by %s", claim.deviceName, action, claim.username);
+        final String notificationMessage = String.format(
+                "Device %s was %s by %s", claim.deviceName, action, claim.username);
 
         executor.submit(() -> {
             notifyChannel(notificationMessage);
@@ -272,7 +272,8 @@ public class DeviceSlackResource {
         final boolean pinningEnabled = pinningChannel != null && !pinningChannel.isEmpty();
         if (pinningEnabled) {
             if (claimed) {
-                final String pinnedMessage = String.format("%s - %s", claim.deviceName, claim.username);
+                final String pinnedMessage = String.format(
+                        "%s - %s", claim.deviceName, claim.username);
                 final String pinTimestamp = slack.postMessage(pinningChannel, pinnedMessage);
                 claimRepository.update(claim.withSlackTimestamp(pinTimestamp));
                 slack.pinMessage(pinningChannel, pinTimestamp);

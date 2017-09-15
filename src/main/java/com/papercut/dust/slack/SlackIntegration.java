@@ -58,7 +58,8 @@ public class SlackIntegration implements SlackClient {
      * @return Slack web client
      */
     private SlackWebApiClient webClient() {
-        return SlackClientFactory.createWebApiClient(ConfigurationHolder.get().getSlackConfig().getBotToken());
+        return SlackClientFactory.createWebApiClient(
+                ConfigurationHolder.get().getSlackConfig().getBotToken());
     }
 
     /**
@@ -67,7 +68,8 @@ public class SlackIntegration implements SlackClient {
      * @return Slack RTM client
      */
     private SlackRealTimeMessagingClient rtmClient() {
-        return SlackClientFactory.createSlackRealTimeMessagingClient(ConfigurationHolder.get().getSlackConfig().getBotToken());
+        return SlackClientFactory.createSlackRealTimeMessagingClient(
+                ConfigurationHolder.get().getSlackConfig().getBotToken());
     }
 
     /**
@@ -77,25 +79,31 @@ public class SlackIntegration implements SlackClient {
      * @param text the text
      * @return Slack timestamp of the posted message
      */
+    @Override
     public String postMessage(final String target, final String text) {
-        LOGGER.info("Posting to slack channel/user: {}, message: {}", target, text);
-        return webClient.postMessage(target, text, ConfigurationHolder.get().getSlackConfig().getBotUsername(), false);
+        LOGGER.info("Posting to Slack channel/user: {}, message: {}", target, text);
+        return webClient.postMessage(target, text,
+                ConfigurationHolder.get().getSlackConfig().getBotUsername(), false);
     }
 
+    @Override
     public void pinMessage(final String channel, final String timestamp) {
-        LOGGER.info("Pinning to slack channel: {}, timestamp: {}", channel, timestamp);
+        LOGGER.info("Pinning to Slack channel: {}, timestamp: {}", channel, timestamp);
         webClient.pinMessage(channel, timestamp);
     }
 
+    @Override
     public void unpinMessage(final String channel, final String timestamp) {
-        LOGGER.info("Unpinning from slack channel: {}, timestamp: {}", channel, timestamp);
+        LOGGER.info("Unpinning from Slack channel: {}, timestamp: {}", channel, timestamp);
         webClient.unpinMessage(channel, timestamp);
     }
 
+    @Override
     public void addListener(final Event event, final EventListener listener) {
         rtmClient.addListener(event, listener);
     }
 
+    @Override
     public String getUsernameById(final String userId) {
         return webClient.getUserInfo(userId).getName();
     }

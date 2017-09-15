@@ -10,7 +10,19 @@ package com.papercut.dust.device;
 
 public class NoSuchUniqueDeviceException extends RuntimeException {
 
-    public NoSuchUniqueDeviceException(String s) {
-        super(s);
+    public NoSuchUniqueDeviceException(final String message) {
+        super(message);
+    }
+
+    public static NoSuchUniqueDeviceException none(final String keyword) {
+        return new NoSuchUniqueDeviceException("No unique matching device for '" + keyword + "'");
+    }
+
+    public static NoSuchUniqueDeviceException tooMany(
+            final String keyword,
+            final String foundDeviceNames
+    ) {
+        return new NoSuchUniqueDeviceException("We found too many matching devices for '"
+                + keyword + "': " + foundDeviceNames);
     }
 }

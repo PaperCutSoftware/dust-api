@@ -22,6 +22,9 @@ import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A user of the system.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Principal, Identifiable<User>, Serializable {
 

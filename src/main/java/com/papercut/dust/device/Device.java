@@ -127,7 +127,7 @@ public class Device implements Identifiable<Device>, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -159,16 +159,23 @@ public class Device implements Identifiable<Device>, Serializable {
 
     @Override
     public Device withId(final long newId) {
-        return new Device(newId, brand, model, hostname, nickname, ip, adminUrl, adminUsername, adminPassword, wikiUrl, manualUrl, photoUrl, comment, location, claimedById, claimedBy);
+        return new Device(
+                newId, brand, model, hostname, nickname, ip, adminUrl, adminUsername, adminPassword,
+                wikiUrl, manualUrl, photoUrl, comment, location, claimedById, claimedBy);
     }
 
     Device claimedBy(final Long claimedById, final String claimedBy) {
-        return new Device(id, brand, model, hostname, nickname, ip, adminUrl, adminUsername, adminPassword, wikiUrl, manualUrl, photoUrl, comment, location, claimedById, claimedBy);
+        return new Device(
+                id, brand, model, hostname, nickname, ip, adminUrl, adminUsername, adminPassword,
+                wikiUrl, manualUrl, photoUrl, comment, location, claimedById, claimedBy);
     }
 
     @Override
     public String toString() {
-        return "Device{" + "id=" + id + ", brand=" + brand + ", model=" + model + ", hostname=" + hostname + ", nickname=" + nickname + ", ip=" + ip + ", location=" + location + ", claimedById=" + claimedById + ", claimedBy=" + claimedBy + '}';
+        return "Device{" + "id=" + id + ", brand=" + brand + ", model=" + model
+                + ", hostname=" + hostname + ", nickname=" + nickname + ", ip=" + ip
+                + ", location=" + location + ", claimedById=" + claimedById
+                + ", claimedBy=" + claimedBy + '}';
     }
 
 }

@@ -36,4 +36,5 @@ public class SlackNoOp implements SlackClient {
     public String getUsernameById(String userId) {
         return null;
     }
+
 }

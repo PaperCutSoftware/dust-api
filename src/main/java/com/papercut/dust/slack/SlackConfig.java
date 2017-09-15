@@ -10,8 +10,6 @@ package com.papercut.dust.slack;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,8 +17,6 @@ import java.util.List;
  * Configuration for the Slack side.
  */
 public class SlackConfig {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SlackConfig.class);
 
     @JsonProperty("botToken")
     private String botToken;
@@ -89,7 +85,8 @@ public class SlackConfig {
     }
 
     public boolean configured() {
-        return StringUtils.isNotBlank(getBotToken()) && commandVerificationTokens != null && !commandVerificationTokens.isEmpty();
+        return StringUtils.isNotBlank(getBotToken())
+                && commandVerificationTokens != null && !commandVerificationTokens.isEmpty();
     }
 
 }

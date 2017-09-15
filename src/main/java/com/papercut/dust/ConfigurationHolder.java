@@ -15,7 +15,7 @@ public final class ConfigurationHolder {
     private ConfigurationHolder() {
     }
 
-    static void set(DeviceUsageTrackerConfig config) {
+    static void set(final DeviceUsageTrackerConfig config) {
         ConfigurationHolder.config = config;
     }
 

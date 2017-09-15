@@ -37,8 +37,9 @@ public class AuthenticatorFeature implements Feature {
     @Override
     public boolean configure(final FeatureContext featureContext) {
         final UserRepository userRepo = CDI.current().select(UserRepository.class).get();
-        final Authenticator<String, User> authenticator
-                = new GoogleAuthenticator(authConfig.getClientId(), userRepo, authConfig.getHostedDomain());
+        final Authenticator<String, User> authenticator = new GoogleAuthenticator(
+                authConfig.getClientId(), userRepo, authConfig.getHostedDomain()
+        );
 
         final Authenticator<String, User> cachingAuthenticator = new CachingAuthenticator<>(
                 metricRegistry, authenticator, authConfig.getAuthenticationCachePolicy()

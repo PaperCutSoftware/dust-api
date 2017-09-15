@@ -26,7 +26,6 @@ import static java.util.stream.Stream.of;
 /**
  * Repository of users.
  */
-
 @ApplicationScoped
 public class UserRepository extends Repository<User> {
 
@@ -48,7 +47,8 @@ public class UserRepository extends Repository<User> {
 
     public User findBySlackUsername(final String slackUsername) {
         return findAll().stream()
-                .filter(u -> u.slackUsername != null && u.slackUsername.equals(slackUsername)).findFirst()
+                .filter(u -> u.slackUsername != null && u.slackUsername.equals(slackUsername))
+                .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No such user"));
     }
 

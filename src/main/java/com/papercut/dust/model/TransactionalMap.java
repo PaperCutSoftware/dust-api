@@ -10,6 +10,11 @@ package com.papercut.dust.model;
 
 import java.util.Map;
 
+/**
+ * Map with the concept of transactions.
+ *
+ * @param <T> type of the value
+ */
 public interface TransactionalMap<T> extends Map<Long, T> {
 
     void commit();

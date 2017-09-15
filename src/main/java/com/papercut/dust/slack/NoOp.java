@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Mark a slack client as no-op.
+ * Mark a Slack client as no-op.
  */
 @Retention(RUNTIME)
 @Target({ElementType.TYPE, ElementType.PARAMETER, ElementType.METHOD, ElementType.FIELD})

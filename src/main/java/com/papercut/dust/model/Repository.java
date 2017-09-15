@@ -87,7 +87,7 @@ public abstract class Repository<T extends Identifiable<T>> {
 
     protected T findById(final long id) {
         return Optional.ofNullable(store.get(id))
-                .orElseThrow(() -> new NoSuchUniqueDeviceException("No unique matching device for '" + id + "'"));
+                .orElseThrow(() -> NoSuchUniqueDeviceException.none(String.valueOf(id)));
     }
 
     protected Collection<T> findByKeyword(final String keyword) {
